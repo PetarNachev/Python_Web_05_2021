@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bosozoku</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <style>
+        body {
+            background-image: url('https://jooinn.com/images/mountain-road-7.jpg');
+        }
+    </style>
+    <style>
+        .center {
+            height: 200px;
+            position: relative;
+        }
+
+        .center p {
+            margin: 0;
+            position: absolute;
+            top: 400%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'index' %}">Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Members</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+            </ul>
+            <button type="button" class="btn btn-secondary">Log In</button>
+            <button type="button" class="btn btn-secondary">Register</button>
+        </div>
+    </div>
+</nav>
+<div class="center">
+    <p>“Life should not be a journey to the grave with the intention of arriving safely in a pretty and well preserved
+        body, but rather to skid in broadside in a cloud of smoke, thoroughly used up, totally worn out, and loudly
+        proclaiming "Wow! What a Ride!”
+        ― Hunter S. Thompson, The Proud Highway: Saga of a Desperate Southern Gentleman, 1955-1967</p>
+</div>
+
+</body>
+</html>
