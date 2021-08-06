@@ -37,20 +37,38 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Members</a>
+                    <a class="nav-link" href="{% url 'profile list' %}">Members</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Events</a>
+                    <a class="nav-link" href="{% url 'list events' %}">Events</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile details' %}">Profile Details</a>
+                </li>
+                {% endif %}
             </ul>
-            <form action="{% url 'log in user' %}">
-                <input type="submit" value="Log in" />
-            </form>
-            <form action="{% url 'register user' %}">
-                <input type="submit" value="Register" />
-            </form>
+            {% if not request.user.is_authenticated %}
+                <form action="{% url 'log in user' %}">
+                    <input type="submit" value="Log in"/>
+                </form>
+                <form action="{% url 'register user' %}">
+                    <input type="submit" value="Register"/>
+                </form>
+            {% else %}
+                {#                <li class="nav-item">#}
+                {#                    <a href="{% url 'profile details' %}" class="card-link">{{request.user}}</a>#}
+                {#                </li>#}
+                <form action="{% url 'profile details' %}">
+                    <input type="submit" value="{{request.user}}"/>
+                </form>
+                <form action="{% url 'log out user' %}">
+                    <input type="submit" value="Log out"/>
+                </form>
+            {% endif %}
         </div>
     </div>
 </nav>
