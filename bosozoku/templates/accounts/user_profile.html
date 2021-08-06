@@ -1,3 +1,55 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+    <div class="text-center">
+        <h1>{{ request.user }}</h1>
+        {% if profile.profile_image %}
+            <img class="rounded-circle mb-3" src="{{ profile.profile_image.url }}" alt=""
+                 width="300px"
+                 height="300px">
+        {% else %}
+            <img class="rounded-circle mb-3" src="{% static 'images/generic_profile.jpg' %}"
+                 alt=""
+                 width="300"
+                 height="300">
+        {% endif %}
+        <div class="w-50 m-auto">
+            <form action="{% url 'profile details' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button class="btn btn-success">Update</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% if events %}
+        <h2 class='text-center'>Your Events</h2>
+        <div class="row">
+            <div class="row">
+                {% for event in events %}
+                    <div class="col-lg-4">
+                        <div class="card mb-3">
+                            <h3 class="card-header">{{ event.name }}</h3>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ event.date }}</h5>
+                            </div>
+                            <img src="{{ event.image.url }}" class="card-img-top" alt="...">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Location: {{ event.location }}</li>
+                            </ul>
+                            <a href="{% url 'event details' event.id %}" class="btn btn-success">Details</a>
+                            <div class="card-footer text-muted">
+                                {{ event.user }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h2>You have no events</h2>
+            <a href="{% url 'create event' %}" class="btn btn-success">Create Event</a>
+        </div>
+    {% endif %}
 {% endblock %}

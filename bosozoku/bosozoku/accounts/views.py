@@ -49,6 +49,7 @@ def logout_user(request):
 @login_required
 def profile_details(request):
     profile = Profile.objects.get(pk=request.user.id)
+
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
@@ -68,11 +69,11 @@ def profile_details(request):
     return render(request, 'accounts/user_profile.html', context)
 
 
-def list_profiles(req):
+def list_profiles(request):
     all_profiles = Profile.objects.all()
 
     context = {
         'profiles': all_profiles,
     }
 
-    return render(req, 'accounts/profile_list.html', context)
+    return render(request, 'accounts/profile_list.html', context)
