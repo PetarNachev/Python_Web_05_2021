@@ -2,9 +2,10 @@ from django import forms
 
 from bosozoku.common.models import Comment
 from bosozoku.events.models import Event
+from core.forms import BoostrapFormMixin
 
 
-class CommentForm(forms.ModelForm):
+class CommentForm(BoostrapFormMixin, forms.ModelForm):
     event_pk = forms.IntegerField(
         widget=forms.HiddenInput()
     )

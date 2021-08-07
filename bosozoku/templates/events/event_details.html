@@ -1,3 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div class="card mb-3, first" size="">
+        <h3 class="card-header">{{ event.name }}</h3>
+        <div class="card-body">
+            <h5 class="card-title">{{ event.date }}</h5>
+        </div>
+        <img src="{{ event.image.url }}" class="card-img-top" alt="..." style="width:auto;">
+        <div class="card-body">
+            <p class="card-text">Details: {{ event.description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Location: {{ event.location }}</li>
+        </ul>
+        {% if is_creator %}
+            <div>
+                <a href="{% url 'edit event' event.id %}" class="btn btn-success">Edit</a>
+                <a href="{% url 'delete event' event.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        {% else %}
+            <ul class="list-group list-group-flush"></ul>
+            {% if is_going %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">You are going to this event.</li>
+                </ul>
+            {% else %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">You are not going to this event.</li>
+                </ul>
+            {% endif %}
+            <a href="{% url 'going event' event.id %}">
+                {% if is_going %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check-circle-o" aria-hidden="true"></i></li>
+                    </ul>
+                {% else %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-circle-o" aria-hidden="true"></i></li>
+                    </ul>
+                {% endif %}
+            </a>
+        {% endif %}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                People going:
+                <span class="badge bg-primary rounded-pill">{{ event.going_count }}</span>
+            </li>
+        </ul>
+        <div class="card-footer text-muted">
+            Organized by: {{ event.user }}
+        </div>
+    </div>
+    <div class="d-block, first" style="background-color: #303030; padding:1%">
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="box">
+                    <h5><u>{{ comment.user }}</u>: <em>{{ comment.text }}</em></h5>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="box">
+                <h3>There are no comments for this event. </h3>
+            </div>
+        {% endif %}
+        {% if not is_creator %}
+            <div class="box">
+                <form method="post" action="{% url 'comment event' event.id %}">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <button class="btn btn-primary mt-2" type="submit">Comment</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
+
