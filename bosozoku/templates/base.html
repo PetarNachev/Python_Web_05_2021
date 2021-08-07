@@ -30,14 +30,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'list events' %}">Events</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
                 {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create event' %}">Add Event</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile details' %}">Profile Details</a>
                     </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
             </ul>
             {% if not request.user.is_authenticated %}
                 <form action="{% url 'log in user' %}">
@@ -47,9 +50,6 @@
                     <input type="submit" value="Register"/>
                 </form>
             {% else %}
-                {#                <li class="nav-item">#}
-                {#                    <a href="{% url 'profile details' %}" class="card-link">{{request.user}}</a>#}
-                {#                </li>#}
                 <form action="{% url 'profile details' %}">
                     <input type="submit" value="{{ request.user }}"/>
                 </form>

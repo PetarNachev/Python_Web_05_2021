@@ -69,6 +69,7 @@ def profile_details(request):
     return render(request, 'accounts/user_profile.html', context)
 
 
+@login_required
 def list_profiles(request):
     all_profiles = Profile.objects.all()
 

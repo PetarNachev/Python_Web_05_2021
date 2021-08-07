@@ -6,6 +6,7 @@ from bosozoku.events.forms import EventForm, EditEventForm
 from bosozoku.events.models import Event, Going
 
 
+@login_required
 def event_details(request, pk):
     event = Event.objects.get(pk=pk)
     event.going_count = event.going_set.count()
@@ -41,6 +42,7 @@ def comment_event(request, pk):
     return redirect('event details', pk)
 
 
+@login_required
 def list_events(req):
     all_events = Event.objects.all()
 
@@ -111,7 +113,7 @@ def delete_event(req, pk):
 
     if req.method == 'POST':
         event.delete()
-        return redirect('list pets')
+        return redirect('list events')
 
     context = {
         'event': event

@@ -8,9 +8,16 @@ from core.forms import BoostrapFormMixin
 from bosozoku.events.models import Event
 
 
+class MyDateInput(forms.DateInput):
+    input_type = 'datetime-local'
+
+
 class EventForm(BoostrapFormMixin, forms.ModelForm):
     class Meta:
         model = Event
+        widgets = {
+            'date': MyDateInput(),
+        }
         exclude = ('user', )
 
 
