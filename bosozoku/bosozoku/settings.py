@@ -150,3 +150,10 @@ MEDIA_URL = '/media_files/'
 MEDIA_ROOT = BASE_DIR / 'media_files'
 
 AUTH_USER_MODEL = 'accounts.BosozokuUser'
+
+# DROPBOX_OAUTH2_TOKEN = 'oxOkSNerstgAAAAAAAAAAZz4XqE7VVaqSkSF_cgqPcYshCpNcDV6r3NuWd1Fo9_S'
+#
+# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+#
+# DROPBOX_ROOT_PATH = '/Apps/bosozoku/'
+

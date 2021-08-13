@@ -52,7 +52,7 @@
                     </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
                 </li>
             </ul>
             {% if not request.user.is_authenticated %}
@@ -63,9 +63,6 @@
                     <input type="submit" value="Register"/>
                 </form>
             {% else %}
-                {#                <li class="nav-item">#}
-                {#                    <a href="{% url 'profile details' %}" class="card-link">{{request.user}}</a>#}
-                {#                </li>#}
                 <form action="{% url 'profile details' %}">
                     <input type="submit" value="{{request.user}}"/>
                 </form>
