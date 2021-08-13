@@ -1,5 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
+from django.views.generic import UpdateView, DeleteView, ListView
 
 from bosozoku.common.forms import CommentForm
 from bosozoku.events.forms import EventForm, EditEventForm
@@ -88,35 +91,61 @@ def create_event(request):
     return render(request, 'events/event_create.html', context)
 
 
-@login_required
-def edit_event(req, pk):
-    event = Event.objects.get(pk=pk)
-
-    if req.method == 'POST':
-        form = EditEventForm(req.POST, req.FILES, instance=event)
-        if form.is_valid():
-            form.save()
-            return redirect('list events')
-    else:
-        form = EditEventForm(instance=event)
-
-    context = {
-        'form': form,
-        'event': event
-    }
-    return render(req, 'events/event_edit.html', context)
+class ListEventsView(ListView):
+    template_name = 'events/events_list.html'
+    context_object_name = 'events'
+    model = Event
 
 
-@login_required
-def delete_event(req, pk):
-    event = Event.objects.get(pk=pk)
+class EditEventView(LoginRequiredMixin, UpdateView):
+    model = Event
+    template_name = 'events/event_edit.html'
+    form_class = EditEventForm
+    # success_url = reverse_lazy('list events')
 
-    if req.method == 'POST':
-        event.delete()
-        return redirect('list events')
+    def get_success_url(self):
+        return reverse('event details', kwargs={
+            'pk': self.object.id,
+        })
 
-    context = {
-        'event': event
-    }
 
-    return render(req, 'events/event_delete.html', context)
+class DeleteEventView(LoginRequiredMixin, DeleteView):
+    template_name = 'events/event_delete.html'
+    model = Event
+    success_url = reverse_lazy('list events')
+
+
+# @login_required
+# def edit_event(req, pk):
+#     event = Event.objects.get(pk=pk)
+#
+#     if req.method == 'POST':
+#         form = EditEventForm(req.POST, req.FILES, instance=event)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('list events')
+#     else:
+#         form = EditEventForm(instance=event)
+#
+#     context = {
+#         'form': form,
+#         'event': event
+#     }
+#     return render(req, 'events/event_edit.html', context)
+#
+#
+# @login_required
+# def delete_event(req, pk):
+#     event = Event.objects.get(pk=pk)
+#
+#     if req.method == 'POST':
+#         event.delete()
+#         return redirect('list events')
+#
+#     context = {
+#         'event': event
+#     }
+#
+#     return render(req, 'events/event_delete.html', context)
+
+
