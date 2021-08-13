@@ -4,11 +4,11 @@
     <div class="text-center">
         <h1>{{ request.user }}</h1>
         {% if profile.profile_image %}
-            <img class="rounded-circle mb-3" src="{{ profile.profile_image.url }}" alt=""
+            <img class="w3-round" src="{{ profile.profile_image.url }}" alt=""
                  width="300px"
                  height="300px">
         {% else %}
-            <img class="rounded-circle mb-3" src="{% static 'images/generic_profile.jpg' %}"
+            <img class="w3-round" src="{% static 'images/generic_profile.jpg' %}"
                  alt=""
                  width="300"
                  height="300">

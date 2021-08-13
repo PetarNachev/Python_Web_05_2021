@@ -5,13 +5,15 @@
         {% for profile in profiles %}
             {% if profile.profile_image %}
                 <div class="col-lg-4">
-                    <img class="rounded-circle mb-3" src="{{ profile.profile_image.url }}" alt=""
-                         width="300px"
-                         height="300px">
-                    <p class="card-text">Member: {{ profile.user }}</p>
+                    <div class="card mb-3">
+                        <img class="w3-round" src="{{ profile.profile_image.url }}" alt=""
+                             style="object-fit:contain;">
+                        <div class="card-header">Member: {{ profile.user }}</div>
+                    </div>
                 </div>
             {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
+
 
