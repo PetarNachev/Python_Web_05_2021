@@ -55,6 +55,10 @@
             {% for comment in comments %}
                 <div class="box">
                     <h5><u>{{ comment.user }}</u>: <em>{{ comment.text }}</em></h5>
+                    {% if comment in user_comments %}
+                        <a href="{% url 'edit comment' comment.id %}" class="btn btn-success">Edit</a>
+                        <a href="{% url 'delete comment' comment.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
                     <hr>
                 </div>
             {% endfor %}

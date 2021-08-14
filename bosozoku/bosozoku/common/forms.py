@@ -26,3 +26,9 @@ class CommentForm(BoostrapFormMixin, forms.ModelForm):
             comment.save()
 
         return comment
+
+
+class EditCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('text',)

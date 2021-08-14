@@ -15,7 +15,7 @@
                     </ul>
                     <a href="{% url 'event details' event.pk %}" class="btn btn-success">Details</a>
                     <div class="card-footer text-muted">
-                        {{ event.user }}
+                        {{ event.user.email }}
                     </div>
                 </div>
             </div>

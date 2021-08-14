@@ -5,6 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, DeleteView, ListView
 
 from bosozoku.common.forms import CommentForm
+from bosozoku.common.models import Comment
 from bosozoku.events.forms import EventForm, EditEventForm
 from bosozoku.events.models import Event, Going
 
@@ -13,7 +14,7 @@ from bosozoku.events.models import Event, Going
 def event_details(request, pk):
     event = Event.objects.get(pk=pk)
     event.going_count = event.going_set.count()
-
+    user_comments = Comment.objects.filter(user_id=request.user)
     is_creator = event.user == request.user
 
     is_user_going = event.going_set.filter(user_id=request.user.id) \
@@ -29,6 +30,7 @@ def event_details(request, pk):
         'comments': event.comment_set.all(),
         'is_creator': is_creator,
         'is_going': is_user_going,
+        'user_comments': user_comments,
     }
 
     return render(request, 'events/event_details.html', context)
