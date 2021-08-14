@@ -22,7 +22,6 @@ class BosozokuUser(AbstractBaseUser, PermissionsMixin):
     objects = BosozokuUserManager()
 
 
-
 class Profile(models.Model):
     profile_image = models.ImageField(
         upload_to='profiles',
