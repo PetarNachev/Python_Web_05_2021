@@ -28,7 +28,7 @@ class CommentForm(BoostrapFormMixin, forms.ModelForm):
         return comment
 
 
-class EditCommentForm(forms.ModelForm):
+class EditCommentForm(BoostrapFormMixin, forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)

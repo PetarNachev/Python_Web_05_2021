@@ -1,6 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.urls import reverse
+from django.views.generic import UpdateView
+
 from bosozoku.common.forms import EditCommentForm
 from bosozoku.common.models import Comment
 
@@ -31,6 +35,18 @@ def edit_comment(request, pk):
         'is_created_by_user': is_owner,
     }
     return render(request, 'comment_edit.html', context)
+
+
+# class EditCommentView(LoginRequiredMixin, UpdateView):
+#     model = Comment
+#     template_name = 'comment_edit.html'
+#     form_class = EditCommentForm
+#     # success_url = reverse_lazy('list events')
+#
+#     def get_success_url(self):
+#         return reverse('event details', kwargs={
+#             'pk': self.object.id,
+#         })
 
 
 def delete_comment(request, pk):

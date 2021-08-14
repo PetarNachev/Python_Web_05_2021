@@ -9,7 +9,7 @@ from core.forms import BoostrapFormMixin
 UserModel = get_user_model()
 
 
-class LoginForm(forms.Form):
+class LoginForm(BoostrapFormMixin, forms.Form):
     user = None
     email = forms.EmailField(
     )
@@ -30,7 +30,7 @@ class LoginForm(forms.Form):
         return self.user
 
 
-class RegisterForm(UserCreationForm):
+class RegisterForm(BoostrapFormMixin, UserCreationForm):
     class Meta:
         model = UserModel
         fields = ('email', )
