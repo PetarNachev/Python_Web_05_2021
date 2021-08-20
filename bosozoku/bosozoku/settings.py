@@ -142,3 +142,8 @@ AUTH_USER_MODEL = 'accounts.BosozokuUser'
 #
 # DROPBOX_ROOT_PATH = '/Apps/bosozoku/'
 
+cloudinary.config(
+    cloud_name="pnachev",
+    api_key="786997418133986",
+    api_secret="cBkF6JzzLEUmTL8v7kZtliSp7AU",
+)

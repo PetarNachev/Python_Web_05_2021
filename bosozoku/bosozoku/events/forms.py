@@ -22,13 +22,6 @@ class EventForm(BoostrapFormMixin, forms.ModelForm):
 
 
 class EditEventForm(EventForm):
-
-    # def save(self, commit=True):
-    #     db_event = Event.objects.get(pk=self.instance.id)
-    #     if commit:
-    #         os.remove(join(settings.MEDIA_ROOT, str(db_event.image)))
-    #     return super().save(commit)
-
     class Meta:
         model = Event
         exclude = ('user', )

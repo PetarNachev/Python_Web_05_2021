@@ -1,4 +1,4 @@
-
+from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -14,9 +14,7 @@ class Event(models.Model):
     location = models.CharField(
         max_length=30,
     )
-    image = models.ImageField(
-        upload_to='events'
-    )
+    image = CloudinaryField('image')
 
     user = models.ForeignKey(
         UserModel,
