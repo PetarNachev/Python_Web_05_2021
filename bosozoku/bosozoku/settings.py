@@ -136,11 +136,6 @@ MEDIA_ROOT = BASE_DIR / 'media_files'
 
 AUTH_USER_MODEL = 'accounts.BosozokuUser'
 
-# DROPBOX_OAUTH2_TOKEN = 'roSI07GDBq0AAAAAAAAAAc6gipDEFYQG1-C3EwI1MHxTG0MXiGf5NPCvDdPoue9L'
-#
-# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-#
-# DROPBOX_ROOT_PATH = '/Apps/bosozoku/'
 
 cloudinary.config(
     cloud_name="pnachev",
