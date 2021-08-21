@@ -9,25 +9,28 @@ from core.forms import BoostrapFormMixin
 UserModel = get_user_model()
 
 
-class LoginForm(BoostrapFormMixin, forms.Form):
-    user = None
-    email = forms.EmailField(
-    )
-    password = forms.CharField(
-        widget=forms.PasswordInput(),
-    )
+class LoginForm(BoostrapFormMixin, AuthenticationForm):
+    pass
 
-    def clean_password(self):
-        self.user = authenticate(
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password'],
-        )
-
-        if not self.user:
-            raise ValidationError('Email and/or password incorrect')
-
-    def save(self):
-        return self.user
+# class LoginForm(BoostrapFormMixin, forms.Form):
+#     user = None
+#     email = forms.EmailField(
+#     )
+#     password = forms.CharField(
+#         widget=forms.PasswordInput(),
+#     )
+#
+#     def clean_password(self):
+#         self.user = authenticate(
+#             email=self.cleaned_data['email'],
+#             password=self.cleaned_data['password'],
+#         )
+#
+#         if not self.user:
+#             raise ValidationError('Email and/or password incorrect')
+#
+#     def save(self):
+#         return self.user
 
 
 class RegisterForm(BoostrapFormMixin, UserCreationForm):

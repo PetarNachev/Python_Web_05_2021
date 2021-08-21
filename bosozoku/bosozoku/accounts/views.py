@@ -30,21 +30,27 @@ class RegisterView(CreateView):
         return result
 
 
-def login_user(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('index')
-    else:
-        form = LoginForm()
+class LoginUserView(LoginView):
+    template_name = 'accounts/login.html'
+    authentication_form = LoginForm
+    success_url = reverse_lazy('index')
 
-    context = {
-        'form': form,
-    }
 
-    return render(request, 'accounts/login.html', context)
+# def login_user(request):
+#     if request.method == 'POST':
+#         form = LoginForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('index')
+#     else:
+#         form = LoginForm()
+#
+#     context = {
+#         'form': form,
+#     }
+#
+#     return render(request, 'accounts/login.html', context)
 
 
 # def register_user(request):
