@@ -4,6 +4,7 @@ from django.db import models
 
 from bosozoku.accounts.managers import BosozokuUserManager
 
+from cloudinary import models as cloudinary_models
 
 class BosozokuUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
@@ -23,8 +24,8 @@ class BosozokuUser(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    profile_image = models.ImageField(
-        upload_to='profiles',
+    profile_image = cloudinary_models.CloudinaryField(
+        resource_type='image',
         blank=True,
     )
     user = models.OneToOneField(
