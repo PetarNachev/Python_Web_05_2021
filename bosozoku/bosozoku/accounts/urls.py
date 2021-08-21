@@ -1,6 +1,6 @@
 from django.urls import path
-from bosozoku.accounts.views import logout_user, profile_details, list_profiles, \
-    RegisterView, ProfileDetailsView, LoginUserView
+from bosozoku.accounts.views import logout_user,\
+    RegisterView, ProfileDetailsView, LoginUserView, ListProfileView
 
 urlpatterns = (
     # path('login/', login_user, name='log in user'),
@@ -11,5 +11,6 @@ urlpatterns = (
     # path('login/', LoginUserView.as_view(), name='log in user'),
     # path('profile/', profile_details, name='profile details'),
     path('profile/', ProfileDetailsView.as_view(), name='profile details'),
-    path('profile_list/', list_profiles, name='profile list'),
+    # path('profile_list/', list_profiles, name='profile list'),
+    path('profile_list/', ListProfileView.as_view(), name='profile list'),
 )

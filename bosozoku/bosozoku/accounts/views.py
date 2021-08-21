@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, FormView
+from django.views.generic import CreateView, FormView, ListView
 
 from bosozoku.accounts.forms import LoginForm, RegisterForm, ProfileForm
 from bosozoku.accounts.models import Profile
@@ -75,27 +75,27 @@ def logout_user(request):
     return redirect('index')
 
 
-@login_required
-def profile_details(request):
-    profile = Profile.objects.get(pk=request.user.id)
-
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile details')
-    else:
-        form = ProfileForm(instance=profile)
-
-    user_events = Event.objects.filter(user_id=request.user.id)
-
-    context = {
-        'form': form,
-        'events': user_events,
-        'profile': profile,
-    }
-
-    return render(request, 'accounts/user_profile.html', context)
+# @login_required
+# def profile_details(request):
+#     profile = Profile.objects.get(pk=request.user.id)
+#
+#     if request.method == 'POST':
+#         form = ProfileForm(request.POST, request.FILES, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('profile details')
+#     else:
+#         form = ProfileForm(instance=profile)
+#
+#     user_events = Event.objects.filter(user_id=request.user.id)
+#
+#     context = {
+#         'form': form,
+#         'events': user_events,
+#         'profile': profile,
+#     }
+#
+#     return render(request, 'accounts/user_profile.html', context)
 
 
 class ProfileDetailsView(LoginRequiredMixin, FormView):
@@ -126,12 +126,18 @@ class ProfileDetailsView(LoginRequiredMixin, FormView):
         return context
 
 
-@login_required
-def list_profiles(request):
-    all_profiles = Profile.objects.all()
+# @login_required
+# def list_profiles(request):
+#     all_profiles = Profile.objects.all()
+#
+#     context = {
+#         'profiles': all_profiles,
+#     }
+#
+#     return render(request, 'accounts/profile_list.html', context)
 
-    context = {
-        'profiles': all_profiles,
-    }
 
-    return render(request, 'accounts/profile_list.html', context)
+class ListProfileView(LoginRequiredMixin, ListView):
+    template_name = 'accounts/profile_list.html'
+    context_object_name = 'profiles'
+    model = Profile

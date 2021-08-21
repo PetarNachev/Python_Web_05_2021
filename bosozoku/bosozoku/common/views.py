@@ -2,19 +2,27 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.urls import reverse
-from django.views.generic import UpdateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import UpdateView, DeleteView, TemplateView
 
 from bosozoku.common.forms import EditCommentForm
 from bosozoku.common.models import Comment
 
 
-def landing_page(request):
-    return render(request, 'index.html')
+class LandingPage(TemplateView):
+    template_name = 'index.html'
 
 
-def about_page(request):
-    return render(request, 'about.html')
+class AboutPage(TemplateView):
+    template_name = 'about.html'
+
+
+# def landing_page(request):
+#     return render(request, 'index.html')
+
+#
+# def about_page(request):
+#     return render(request, 'about.html')
 
 
 def edit_comment(request, pk):
@@ -45,19 +53,30 @@ def edit_comment(request, pk):
 #
 #     def get_success_url(self):
 #         return reverse('event details', kwargs={
-#             'pk': self.object.id,
+#             'pk': self.object.event.id,
 #         })
 
 
-def delete_comment(request, pk):
-    comment = Comment.objects.get(pk=pk)
+# def delete_comment(request, pk):
+#     comment = Comment.objects.get(pk=pk)
+#
+#     if request.method == 'POST':
+#         comment.delete()
+#         return redirect('event details', comment.event.id)
+#
+#     context = {
+#         'comment': comment
+#     }
+#
+#     return render(request, 'comment_delete.html', context)
 
-    if request.method == 'POST':
-        comment.delete()
-        return redirect('event details', comment.event.id)
 
-    context = {
-        'comment': comment
-    }
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    template_name = 'comment_delete.html'
+    model = Comment
+    # success_url = reverse_lazy('list events')
 
-    return render(request, 'comment_delete.html', context)
+    def get_success_url(self):
+        return reverse('event details', kwargs={
+            'pk': self.object.event.id,
+        })
